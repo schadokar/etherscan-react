@@ -4,7 +4,8 @@ import {
   TableRow,
   TableHeader,
   TableBody,
-  TableCell
+  TableCell,
+  Label
 } from "semantic-ui-react";
 import axios from "axios";
 
@@ -26,7 +27,7 @@ class LatestTxs extends Component {
   getTxs = async () => {
     const { blockNo } = this.props;
 
-    // get the block difficulty
+    // get the block transaction
     const blockDetail = await axios.get(
       endpoint +
         `?module=proxy&action=eth_getBlockByNumber&tag=${blockNo}&boolean=true&apikey=${apiKey}`
@@ -36,16 +37,21 @@ class LatestTxs extends Component {
 
     let txsDetails = [];
 
-    for (let i = 0; i < 10; i = i + 1) {
+    for (let i = 0; i < 5; i = i + 1) {
       const tx = transactions[i];
       txsDetails.push(
         <TableRow key={i}>
-          <TableCell>Tx {tx.hash}</TableCell>
+          <TableCell>
+            <Label color="blue">Tx</Label> {tx.hash}
+          </TableCell>
           <TableCell>
             From {tx.from} <br></br>
             To {tx.to}
           </TableCell>
-          <TableCell> Eth {parseInt(tx.value) / 10 ** 18}</TableCell>
+          <TableCell>
+            {" "}
+            <Label color="blue">Eth</Label> {parseInt(tx.value) / 10 ** 18}
+          </TableCell>
         </TableRow>
       );
     }
@@ -57,17 +63,19 @@ class LatestTxs extends Component {
 
   render() {
     return (
-      <Table fixed>
-        <TableHeader>
-          <TableRow>
-            <TableCell style={{ padding: "10px" }}>
-              Latest Transactions
-            </TableCell>
-          </TableRow>
-        </TableHeader>
+      <div>
+        <Table fixed>
+          <TableHeader>
+            <TableRow>
+              <TableCell style={{ color: "#1d6fa5" }}>
+                <h4> Latest Transactions</h4>
+              </TableCell>
+            </TableRow>
+          </TableHeader>
 
-        <TableBody>{this.state.transactions}</TableBody>
-      </Table>
+          <TableBody>{this.state.transactions}</TableBody>
+        </Table>
+      </div>
     );
   }
 }

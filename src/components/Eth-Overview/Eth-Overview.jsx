@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./eth-overview.css";
-import { Card, Grid, GridRow, GridColumn } from "semantic-ui-react";
-// import LatestBlocks from "../LatestBlocks/index";
+import { Card, Grid, GridRow, GridColumn, Icon } from "semantic-ui-react";
+import LatestBlocks from "../Latest-Blocks/index";
 import LatestTxs from "../Latest-Txs/index";
 
-const apiKey = "1NKSISYXSKE4U1WYGY5US44TMVQMGCH1X7";
+const apiKey = "GKZDA7CVB3KT93FSM4BPT2RZA464FX4SRC";
 const endpoint = `https://api.etherscan.io/api`;
 
 class EthOverview extends Component {
@@ -87,14 +87,14 @@ class EthOverview extends Component {
       });
   }
 
-  // getLatestBlocks = () => {
-  //   return <LatestBlocks></LatestBlocks>;
-  // };
+  getLatestBlocks = () => {
+    if (this.state.latestBlock) {
+      return <LatestBlocks latestBlock={this.state.latestBlock}></LatestBlocks>;
+    }
+  };
 
   getLatestTxs = () => {
-    const { blockNo } = this.state;
-
-    if (blockNo) {
+    if (this.state.blockNo) {
       return <LatestTxs blockNo={this.state.blockNo}></LatestTxs>;
     }
   };
@@ -109,10 +109,12 @@ class EthOverview extends Component {
               <Card>
                 <Card.Content>
                   <Card.Header style={{ color: "#1d6fa5" }}>
-                    ETHER PRICE
+                    <Icon name="ethereum"></Icon> ETHER PRICE
                   </Card.Header>
                   <Card.Description textAlign="left">
-                    ${ethUSD} @{ethBTC} BTC
+                    <Icon name="usd"></Icon>
+                    {ethUSD} <Icon name="at"></Icon> {ethBTC}{" "}
+                    <Icon name="bitcoin"></Icon>
                   </Card.Description>
                 </Card.Content>
               </Card>
@@ -121,10 +123,10 @@ class EthOverview extends Component {
               <Card>
                 <Card.Content>
                   <Card.Header style={{ color: "#1d6fa5" }}>
-                    LATEST BLOCK
+                    <Icon name="list alternate outline"></Icon> LATEST BLOCK
                   </Card.Header>
                   <Card.Description textAlign="left">
-                    {latestBlock}
+                    <Icon name="square"></Icon> {latestBlock}
                   </Card.Description>
                 </Card.Content>
               </Card>
@@ -133,7 +135,7 @@ class EthOverview extends Component {
               <Card>
                 <Card.Content>
                   <Card.Header style={{ color: "#1d6fa5" }}>
-                    DIFFICULTY
+                    <Icon name="setting"></Icon> DIFFICULTY
                   </Card.Header>
                   <Card.Description textAlign="left">
                     {difficulty}
@@ -145,10 +147,10 @@ class EthOverview extends Component {
               <Card>
                 <Card.Content>
                   <Card.Header style={{ color: "#1d6fa5" }}>
-                    MARKET CAP
+                    <Icon name="world"></Icon> MARKET CAP
                   </Card.Header>
                   <Card.Description textAlign="left">
-                    $ {marketCap}
+                    <Icon name="usd"></Icon> {marketCap}
                   </Card.Description>
                 </Card.Content>
               </Card>
@@ -158,7 +160,7 @@ class EthOverview extends Component {
 
         <Grid divided="vertically">
           <Grid.Row columns={2}>
-            <Grid.Column>this.getLatestBlocks</Grid.Column>
+            <Grid.Column>{this.getLatestBlocks()}</Grid.Column>
             <Grid.Column>{this.getLatestTxs()}</Grid.Column>
           </Grid.Row>
         </Grid>
