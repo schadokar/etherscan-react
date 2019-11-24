@@ -1,0 +1,12 @@
+.ui.grid {
+  margin: 0;
+}
+
+.ui.card {
+  font-size: 14px;
+  color: red;
+}
+
+.ui.fixed.table {
+  white-space: nowrap;
+}

@@ -1,0 +1,7 @@
+.ui.block.header {
+  text-align: left;
+  background: white;
+  color: #1d6fa5;
+  box-shadow: 1px 1px #1d6fa5;
+  margin: 10px;
+}
