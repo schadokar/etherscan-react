@@ -1,4 +1,4 @@
-# Etherscan React  
+# Etherscan React  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)   
 
 ### The complete tutorial is published on [newline](https://www.newline.co/@schadokar/create-your-own-etherscan-with-react-in-5-minutes--4626addd) :tada: 
 
@@ -25,3 +25,8 @@ Check out my other articles and tutorials on my blog.
 :link: [schadokar](https://schadokar.in)
 
 
+## License
+
+MIT License
+
+Copyright (c) 2020 Shubham Chadokar
