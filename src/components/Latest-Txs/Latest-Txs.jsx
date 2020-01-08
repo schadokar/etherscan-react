@@ -1,15 +1,8 @@
 import React, { Component } from "react";
-import {
-  Table,
-  TableRow,
-  TableHeader,
-  TableBody,
-  TableCell,
-  Label
-} from "semantic-ui-react";
+import { Table, Label } from "semantic-ui-react";
 import axios from "axios";
 
-const apiKey = "1NKSISYXSKE4U1WYGY5US44TMVQMGCH1X7";
+const apiKey = process.env.REACT_APP_ETHERSCAN_API_KEY;
 const endpoint = `https://api.etherscan.io/api`;
 
 class LatestTxs extends Component {
@@ -40,19 +33,19 @@ class LatestTxs extends Component {
     for (let i = 0; i < 5; i = i + 1) {
       const tx = transactions[i];
       txsDetails.push(
-        <TableRow key={i}>
-          <TableCell>
+        <Table.Row key={i}>
+          <Table.Cell>
             <Label color="blue">Tx</Label> {tx.hash}
-          </TableCell>
-          <TableCell>
+          </Table.Cell>
+          <Table.Cell>
             From {tx.from} <br></br>
             To {tx.to}
-          </TableCell>
-          <TableCell>
+          </Table.Cell>
+          <Table.Cell>
             {" "}
             <Label color="blue">Eth</Label> {parseInt(tx.value) / 10 ** 18}
-          </TableCell>
-        </TableRow>
+          </Table.Cell>
+        </Table.Row>
       );
     }
 
@@ -65,15 +58,15 @@ class LatestTxs extends Component {
     return (
       <div>
         <Table fixed>
-          <TableHeader>
-            <TableRow>
-              <TableCell style={{ color: "#1d6fa5" }}>
+          <Table.Header>
+            <Table.Row>
+              <Table.Cell style={{ color: "#1d6fa5" }}>
                 <h4> Latest Transactions</h4>
-              </TableCell>
-            </TableRow>
-          </TableHeader>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Header>
 
-          <TableBody>{this.state.transactions}</TableBody>
+          <Table.Body>{this.state.transactions}</Table.Body>
         </Table>
       </div>
     );

@@ -1,16 +1,9 @@
 import React, { Component } from "react";
-import {
-  Table,
-  TableRow,
-  TableHeader,
-  TableBody,
-  TableCell,
-  Label
-} from "semantic-ui-react";
+import { Table, Label } from "semantic-ui-react";
 
 import axios from "axios";
 
-const apiKey = "1NKSISYXSKE4U1WYGY5US44TMVQMGCH1X7";
+const apiKey = process.env.REACT_APP_ETHERSCAN_API_KEY;
 const endpoint = `https://api.etherscan.io/api`;
 
 class LatestBlocks extends Component {
@@ -41,18 +34,18 @@ class LatestBlocks extends Component {
 
       const { result } = blockDetail.data;
       blocks.push(
-        <TableRow key={i}>
-          <TableCell>
+        <Table.Row key={i}>
+          <Table.Cell>
             <Label color="blue">Bk</Label> {latestBlock - i}
-          </TableCell>
-          <TableCell>
+          </Table.Cell>
+          <Table.Cell>
             Miner {result.miner} <br></br>
             Txs {result.transactions.length}
-          </TableCell>
-          <TableCell>
+          </Table.Cell>
+          <Table.Cell>
             <Label color="blue">Size </Label> {parseInt(result.size)} bytes
-          </TableCell>
-        </TableRow>
+          </Table.Cell>
+        </Table.Row>
       );
 
       this.setState({
@@ -64,15 +57,15 @@ class LatestBlocks extends Component {
   render() {
     return (
       <Table fixed>
-        <TableHeader>
-          <TableRow>
-            <TableCell style={{ color: "#1d6fa5" }}>
+        <Table.Header>
+          <Table.Row>
+            <Table.Cell style={{ color: "#1d6fa5" }}>
               <h4>Latest Blocks</h4>
-            </TableCell>
-          </TableRow>
-        </TableHeader>
+            </Table.Cell>
+          </Table.Row>
+        </Table.Header>
 
-        <TableBody>{this.state.blocks}</TableBody>
+        <Table.Body>{this.state.blocks}</Table.Body>
       </Table>
     );
   }

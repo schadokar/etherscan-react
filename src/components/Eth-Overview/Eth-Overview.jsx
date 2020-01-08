@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./eth-overview.css";
-import { Card, Grid, GridRow, GridColumn, Icon } from "semantic-ui-react";
+import { Card, Grid, Icon } from "semantic-ui-react";
 import LatestBlocks from "../Latest-Blocks/index";
 import LatestTxs from "../Latest-Txs/index";
 
-const apiKey = "GKZDA7CVB3KT93FSM4BPT2RZA464FX4SRC";
+// import api key from the env variable
+const apiKey = process.env.REACT_APP_ETHERSCAN_API_KEY;
+
 const endpoint = `https://api.etherscan.io/api`;
 
 class EthOverview extends Component {
@@ -104,8 +106,8 @@ class EthOverview extends Component {
     return (
       <div>
         <Grid>
-          <GridRow>
-            <GridColumn width={4}>
+          <Grid.Row>
+            <Grid.Column width={4}>
               <Card>
                 <Card.Content>
                   <Card.Header style={{ color: "#1d6fa5" }}>
@@ -118,8 +120,8 @@ class EthOverview extends Component {
                   </Card.Description>
                 </Card.Content>
               </Card>
-            </GridColumn>
-            <GridColumn width={4}>
+            </Grid.Column>
+            <Grid.Column width={4}>
               <Card>
                 <Card.Content>
                   <Card.Header style={{ color: "#1d6fa5" }}>
@@ -130,8 +132,8 @@ class EthOverview extends Component {
                   </Card.Description>
                 </Card.Content>
               </Card>
-            </GridColumn>
-            <GridColumn width={4}>
+            </Grid.Column>
+            <Grid.Column width={4}>
               <Card>
                 <Card.Content>
                   <Card.Header style={{ color: "#1d6fa5" }}>
@@ -142,8 +144,8 @@ class EthOverview extends Component {
                   </Card.Description>
                 </Card.Content>
               </Card>
-            </GridColumn>
-            <GridColumn width={4}>
+            </Grid.Column>
+            <Grid.Column width={4}>
               <Card>
                 <Card.Content>
                   <Card.Header style={{ color: "#1d6fa5" }}>
@@ -154,8 +156,8 @@ class EthOverview extends Component {
                   </Card.Description>
                 </Card.Content>
               </Card>
-            </GridColumn>
-          </GridRow>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
 
         <Grid divided="vertically">
