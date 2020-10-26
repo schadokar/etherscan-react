@@ -19,74 +19,66 @@ class EthOverview extends Component {
       blockNo: "",
       latestBlock: 0,
       difficulty: "",
-      marketCap: 0
+      marketCap: 0,
     };
   }
 
   async componentDidMount() {
     // get the ethereum price
-    axios
-      .get(endpoint + `?module=stats&action=ethprice&apikey=${apiKey}`)
-      .then(res => {
-        const { result } = res.data;
-        this.setState(
-          {
-            ethUSD: result.ethusd,
-            ethBTC: result.ethbtc
-          },
-          () => {
-            // get the market cap of ether in USD
-            axios
-              .get(endpoint + `?module=stats&action=ethsupply&apikey=${apiKey}`)
-              .then(res => {
-                const { result } = res.data;
-                // in wei
-                const priceWei = result.toString();
+    const prices = await axios.get(
+      endpoint + `?module=stats&action=ethprice&apikey=${apiKey}`
+    );
+    let { result } = prices.data;
+    this.setState({
+      ethUSD: result.ethusd,
+      ethBTC: result.ethbtc,
+    });
 
-                // in ether
-                const priceEth = priceWei.slice(0, priceWei.length - 18);
-                console.log(result, priceWei, priceEth);
-                // convert eth in USD
-                this.setState({
-                  marketCap: parseInt(priceEth) * this.state.ethUSD
-                });
-              });
-          }
-        );
-      });
+    // get the market cap of ether in USD
+    const marketCap = await axios.get(
+      endpoint + `?module=stats&action=ethsupply&apikey=${apiKey}`
+    );
+
+    result = marketCap.data.result;
+    // in wei
+    const priceWei = result.toString();
+
+    // in ether
+    const priceEth = priceWei.slice(0, priceWei.length - 18);
+    console.log(result, priceWei, priceEth);
+    // convert eth in USD
+    this.setState({
+      marketCap: parseInt(priceEth) * this.state.ethUSD,
+    });
 
     // get the latest block number
-    axios
-      .get(endpoint + `?module=proxy&action=eth_blockNumber&apikey=${apiKey}`)
-      .then(res => {
-        this.setState({
-          latestBlock: parseInt(res.data.result),
-          blockNo: res.data.result // save block no in hex
-        });
+    const latestBlock = await axios.get(
+      endpoint + `?module=proxy&action=eth_blockNumber&apikey=${apiKey}`
+    );
+    this.setState({
+      latestBlock: parseInt(latestBlock.data.result),
+      blockNo: latestBlock.data.result, // save block no in hex
+    });
 
-        // get the block difficulty
-        axios
-          .get(
-            endpoint +
-              `?module=proxy&action=eth_getBlockByNumber&tag=${res.data.result}&boolean=true&apikey=${apiKey}`
-          )
-          .then(blockDetail => {
-            const { result } = blockDetail.data;
+    // get the block difficulty
+    const blockDetail = await axios.get(
+      endpoint +
+        `?module=proxy&action=eth_getBlockByNumber&tag=${latestBlock.data.result}&boolean=true&apikey=${apiKey}`
+    );
+    result = blockDetail.data.result;
 
-            const difficulty = parseInt(result.difficulty).toString();
+    const difficulty = parseInt(result.difficulty).toString();
 
-            // convert difficulty in Terra Hash
-            // instead of dividing it with 10^12 we'll slice it
-            const difficultyTH = `${difficulty.slice(0, 4)}.${difficulty.slice(
-              4,
-              6
-            )} TH`;
+    // convert difficulty in Terra Hash
+    // instead of dividing it with 10^12 we'll slice it
+    const difficultyTH = `${difficulty.slice(0, 4)}.${difficulty.slice(
+      4,
+      6
+    )} TH`;
 
-            this.setState({
-              difficulty: difficultyTH
-            });
-          });
-      });
+    this.setState({
+      difficulty: difficultyTH,
+    });
   }
 
   getLatestBlocks = () => {

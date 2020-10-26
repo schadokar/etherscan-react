@@ -8,9 +8,8 @@ const endpoint = `https://api.etherscan.io/api`;
 
 class LatestBlocks extends Component {
   constructor(props) {
-    super(props);
     this.state = {
-      blocks: []
+      blocks: [],
     };
   }
 
@@ -23,34 +22,37 @@ class LatestBlocks extends Component {
 
     let blocks = [];
 
-    for (let i = 0; i < 5; i = i + 1) {
-      // get the block transaction
-      const blockDetail = await axios.get(
-        endpoint +
-          `?module=proxy&action=eth_getBlockByNumber&tag=${(
-            latestBlock - i
-          ).toString(16)}&boolean=true&apikey=${apiKey}`
-      );
+    // check if latest blocks
+    if (latestBlock) {
+      for (let i = 0; i < 2; i = i + 1) {
+        // get the block transaction
+        const blockDetail = await axios.get(
+          endpoint +
+            `?module=proxy&action=eth_getBlockByNumber&tag=${(
+              latestBlock - i
+            ).toString(16)}&boolean=true&apikey=${apiKey}`
+        );
 
-      const { result } = blockDetail.data;
-      blocks.push(
-        <Table.Row key={i}>
-          <Table.Cell>
-            <Label color="blue">Bk</Label> {latestBlock - i}
-          </Table.Cell>
-          <Table.Cell>
-            Miner {result.miner} <br></br>
-            Txs {result.transactions.length}
-          </Table.Cell>
-          <Table.Cell>
-            <Label color="blue">Size </Label> {parseInt(result.size)} bytes
-          </Table.Cell>
-        </Table.Row>
-      );
+        const { result } = blockDetail.data;
+        blocks.push(
+          <Table.Row key={i}>
+            <Table.Cell>
+              <Label color="blue">Bk</Label> {latestBlock - i}
+            </Table.Cell>
+            <Table.Cell>
+              Miner {result.miner} <br></br>
+              Txs {result.transactions.length}
+            </Table.Cell>
+            <Table.Cell>
+              <Label color="blue">Size </Label> {parseInt(result.size)} bytes
+            </Table.Cell>
+          </Table.Row>
+        );
 
-      this.setState({
-        blocks: blocks
-      });
+        this.setState({
+          blocks: blocks,
+        });
+      }
     }
   };
 

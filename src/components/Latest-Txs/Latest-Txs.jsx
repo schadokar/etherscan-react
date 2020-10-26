@@ -9,7 +9,7 @@ class LatestTxs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      transactions: []
+      transactions: [],
     };
   }
 
@@ -30,27 +30,30 @@ class LatestTxs extends Component {
 
     let txsDetails = [];
 
-    for (let i = 0; i < 5; i = i + 1) {
-      const tx = transactions[i];
-      txsDetails.push(
-        <Table.Row key={i}>
-          <Table.Cell>
-            <Label color="blue">Tx</Label> {tx.hash}
-          </Table.Cell>
-          <Table.Cell>
-            From {tx.from} <br></br>
-            To {tx.to}
-          </Table.Cell>
-          <Table.Cell>
-            {" "}
-            <Label color="blue">Eth</Label> {parseInt(tx.value) / 10 ** 18}
-          </Table.Cell>
-        </Table.Row>
-      );
+    // check if there is any transaction
+    if (transactions) {
+      for (let i = 0; i < 2; i = i + 1) {
+        const tx = transactions[i];
+        txsDetails.push(
+          <Table.Row key={i}>
+            <Table.Cell>
+              <Label color="blue">Tx</Label> {tx.hash}
+            </Table.Cell>
+            <Table.Cell>
+              From {tx.from} <br></br>
+              To {tx.to}
+            </Table.Cell>
+            <Table.Cell>
+              {" "}
+              <Label color="blue">Eth</Label> {parseInt(tx.value) / 10 ** 18}
+            </Table.Cell>
+          </Table.Row>
+        );
+      }
     }
 
     this.setState({
-      transactions: txsDetails
+      transactions: txsDetails,
     });
   };
 
