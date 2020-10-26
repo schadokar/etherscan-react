@@ -1,6 +1,8 @@
-# Etherscan React
+# Etherscan React [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-This project is a simple demonstration of [etherscan](https://etherscan.io) dashboard.
+### The complete tutorial is published on [newline](https://www.newline.co/@schadokar/create-your-own-etherscan-with-react-in-5-minutes--4626addd) :tada:
+
+:dog: This project is a simple demonstration of [etherscan](https://etherscan.io) dashboard.
 
 The complete [Tutorial link](https://schadokar.dev/posts/create-your-own-etherscan-with-react-in-5-minutes/).
 
@@ -30,3 +32,23 @@ This app is not updated for this limit.
 You can create a buffer of 1-2 second in between calls to make it work.
 
 ---
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# :pencil: Author
+
+### :sun_with_face: Shubham Kumar Chadokar
+
+Hello, I am a Sofware Engineer. :dizzy_face:
+
+I love to write articles and tutorials on latest technologies. :zap:
+
+Check out my other articles and tutorials on my blog.
+
+:link: [schadokar](https://schadokar.in)
+
+## License
+
+MIT License
+
+Copyright (c) 2020 Shubham Chadokar
